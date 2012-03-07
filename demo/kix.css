@@ -1,0 +1,50 @@
+#KixSidebar {
+  width: 243px;
+  height: 200px;
+  position: fixed;
+  top: 25%;
+  left: -200px;
+}
+
+#KixButton {
+  position: absolute;
+  top: 70px;
+  right: 0px;
+  width: 43px;
+  height: 45px;
+  cursor: pointer;
+  background-image: url('btn.png');
+  text-indent: -1000000px;
+  overflow: hidden;
+  z-index: 200000;
+  outline: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+#KixMenu {
+  width: 200px;
+  height: 200px;
+  left: 0px;
+  top: 0px;
+  margin: 0;
+  padding: 0;
+  background-color: #eee;
+  position: absolute;
+  border-right: 2px solid #333;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+}
+
+#KixSidebar h3 {
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-bottom: 2px solid #777;
+}
+
+#KixMenu ul {
+  text-align: left;
+}
