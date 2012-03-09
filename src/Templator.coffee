@@ -44,6 +44,17 @@ class ValueCommand
     node.addClass("kixValueNode")
     return []
 
+class AttrCommand
+  signature: () ->
+    return "data-X"
+  appliesTo: (node) ->
+    return node.data? and node.data()["src"]?
+  applyTo: (node, evaluator, context, bookmarks, templator) ->
+    expr = node.data()["src"]
+    res = evaluator.evaluate(expr, "string", context, bookmarks)
+    node.attr("src", res)
+    return []
+
 class EnterCommand
   signature: () ->
     return "data-enter"
@@ -106,7 +117,7 @@ class Templator
     # in which they are applied to the DOM
     @.addCommand(new EnterCommand())
     @.addCommand(new ValueCommand())
-
+    @.addCommand(new AttrCommand())
     @.repeatInner = new RepeatInnerCommand()
 
   addCommand: (command) ->

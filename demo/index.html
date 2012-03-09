@@ -7,117 +7,259 @@
     <meta name="description" content="Datasheet Examples">
     <meta name="author" content="Ted Benson">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script>
-      window.dataLink = "";
-    </script>
-    <style>
-      body {
-        padding-top: 40px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
+    <link href="bootstrap/css/prettify.css" rel="stylesheet">
     <script src="js/jquery.js"></script>
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!-- Le fav and touch icons -->
-  </head>
+    <style>
+      
+/* Marketing section of Overview
+-------------------------------------------------- */
+.marketing .row {
+  margin-bottom: 9px;
+}
+.marketing h1 {
+  margin: 36px 0 27px;
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+}
+.marketing h2,
+.marketing h3 {
+  font-weight: 300;
+}
+.marketing h2 {
+  font-size: 22px;
+}
+.marketing p {
+  margin-right: 10px;
+}
+.marketing .bs-icon {
+  float: left;
+  margin: 7px 10px 0 0;
+  opacity: .8;
+}
+.marketing .small-bs-icon {
+  float: left;
+  margin: 4px 5px 0 0;
+}
 
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">Datasheet Examples</a>
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#"></a>
-          <div class="nav-collapse">
-            <ul class="nav">
-
-              <li class="dropdown" id="templateMenu">
-                <a href="#templateMenu" class="dropdown-toggle" data-toggle="dropdown">Set Template<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" data-link="/demo/blogs/blog1/index.html" class="demoLink">Blog - Plain</a></li>
-                  <li><a href="#" data-link="/demo/blogs/blog2/index.html" class="demoLink">Blog - Punchy</a></li>
-                  <li><a href="#" data-link="/demo/blogs/blog3/index.html" class="demoLink">Blog - Gruber</a></li>
-                </ul>
-              </li>
-
-              <li class="dropdown" id="dataMenu">
-                <a href="#dataMenu" class="dropdown-toggle" data-toggle="dropdown">Set Data<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" data-link="/demo/blogs/blog1/data.js" class="demoData">Blog - News</a></li>
-                  <li><a href="#" data-link="/demo/blogs/blog2/data.js" class="demoData">Blog - Quotes</a></li>
-                  <li><a href="#" data-link="/demo/blogs/blog3/data.js" class="demoData">Blog - Cute Cats</a></li>
-                </ul>
-              </li>
-
-              <li class="dropdown" id="editMenu">
-                <a href="#editMenu" class="dropdown-toggle" data-toggle="dropdown">View<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a id="annotateLink" href="#">Show Annotated Page</a></li>
-                  <li><a id="redactLink" href="#">Redact Page</a></li>
-                </ul>
-              </li>
+.marketing-byline {
+  margin: -18px 0 27px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #999;
+  text-align: center;
+}
 
 
+/* Jumbotrons
+-------------------------------------------------- */
+.jumbotron {
+  position: relative;
+}
+.jumbotron h1 {
+  margin-bottom: 9px;
+  font-size: 81px;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.jumbotron p {
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+.jumbotron .btn-large {
+  font-size: 20px;
+  font-weight: normal;
+  padding: 14px 24px;
+  margin-right: 10px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
 
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
+/* Masthead (docs home) */
+.masthead {
+  padding-top: 36px;
+  margin-bottom: 30px;
+}
+.masthead h1,
+.masthead p {
+  text-align: center;
+}
+.masthead h1 {
+  margin-bottom: 18px;
+}
+.masthead p {
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+
+.flickrResult {
+  height: 60px; 
+  width: 60px;
+  border: 1px solid #333;
+  margin: 2px;
+}
+
+.tweet {
+}
+.avatarCol img {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.tweetCol {
+  margin-left: -5px;
+}
+.tweetRow {
+  margin-top: -4px;
+}
+.tweetTextRow {
+  margin-top: -10px;
+}
+.quiet {
+  color: #999;
+}
+</style>
+<script>
+var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+</script>
+<script src="../bin/Evaluator.js"></script>
+<script src="../bin/Templator.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+<header class="jumbotron masthead">
+  <div class="inner">
+    <p align="center"><img src="img/recycle.png" /></p>
+  </div>
+</header>
+
+<hr class="soften">
+
+<div class="marketing">
+  <h1>The first lossless HTML template language.</h1>
+  <p class="marketing-byline">The output contains the data and the template used to style it.</p>
+
+<div class="row">
+  <div class="span6">
+    <div id="tweets">
+      <div class="row tweet">
+        <div class="span1 avatarCol"><img src="img/twitteruser.png" /></div>
+        <div class="span4 tweetCol">
+          <div class="row tweetRow">
+            <div class="span3"><b>Twitter User 1</b> <span class="quiet">@myhandle</span></div>
+            <div class="span1 quiet">6 Mar</div>
+          </div>
+          <div class="row tweetTextRow">
+            <div class="span4">Let me ask you something. Do you feel lucky, punk? Well? Do ya?</div>
+          </div>
+        </div><!-- tweet right -->
+      </div><!-- tweet row -->
+      <div class="row tweet">
+        <div class="span1 avatarCol"><img src="img/twitteruser.png" /></div>
+        <div class="span4 tweetCol">
+          <div class="row tweetRow">
+            <div class="span3"><b>Twitter User 1</b> <span class="quiet">@myhandle</span></div>
+            <div class="span1 quiet">6 Mar</div>
+          </div>
+          <div class="row tweetTextRow">
+            <div class="span4">Let me ask you something. Do you feel lucky, punk? Well? Do ya?</div>
+          </div>
+        </div><!-- tweet right -->
+      </div><!-- tweet row -->
+  </div><!-- tweets div -->
+
+  </div><!-- left side -->
+  <div class="span6">
+  </div>
+</div> 
+
+</div>
+
+<hr class="soften">
+
+<div class="marketing">
+  <h1>Import templates like you import libraries</h1>
+  <p class="marketing-byline">Templates are declarative and self-contained, and you can reference them using their url#id notation.</p> 
+
+<div class="row">
+  <div class="span6">
+  </div><!-- left side -->
+  <div class="span6">
+  </div>
+</div> 
+
+</div>
+
+<hr class="soften">
+
+<div class="marketing">
+  <h1>Simplified Ajax.</h1>
+  <p class="marketing-byline">Replace or append to data that's already bound to the template in the browser.</p>
+  <div class="row">
+    <div class="span6">
+      <h2>Replace (Ajax)</h2>
+      <p>Only one line of code necessary to merge the JSON results from an Ajax call with the user's DOM.</p> 
+<pre id="catCode" class="prettyprint linenums" style="margin-right: 15px; margin-bottom: 9px;">
+val ajaxResponseHandler = function(json) {
+  Templator.evaluate($("#results"), [data]); 
+};</pre>
+   <table class="control-group"><tr><td>
+         <label class="control-label" for="flickr-search">Try Search:</label>
+         </td><td>
+           <input style="margin-left: 15px;" type="text" class="small" id="flickr-search">
+           </td><td>
+              <button id="catBtn" style="margin-top: 0" class="btn btn-success" href="#">Run</button> 
+           </td></tr>
+       </table>
+    </form>
+   <script>
+     $("#catBtn").click(function(e) {
+var query = { tags: $("#flickr-search").val(),
+              tagmode: "any", format:"json"};
+
+            $.getJSON(flickrUrl, query, function(data) {
+              data.items = data.items.slice(5)
+              Templator.evaluate($("#results"), [data]);
+});
+     });
+   </script>
     </div>
-    <iframe style="border: 0;" width="100%" height="800px" id="demoIframe" src="http://www.google.com"></iframe> 
+    <div class="span6">
+      <h2>#results</h2>
+      <p>Since the template structure is preserved in the DOM, new data can be merged-in any time.</p>
+<pre class="prettyprint linenums" style="margin-right: 15px; margin-bottom: 9px;">
+&lt;div id="results" data-repeatinner="items"&gt;
+  &lt;img class="flickrResult" data-src="media.m" /&gt;
+&lt;/div&gt; 
+</pre>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script>
-      $(function() {
-        $(".demoLink").click(function(elem) {
-          var link = $(elem.target).data("link");
-          $("#demoIframe").attr("src", link);
-          if (window.dataLink.length > 0) {
-            $("#demoIframe").load(function() {
-              $.getJSON(window.dataLink, function(data) {
-                var iframe = $("#demoIframe");
-                var html = iframe.contents().find("html");
-                var templator = window.frames[0].Templator;
-                templator.evaluate(html, [data]);
-              });
-            });
-          }
-        });
+      <div id="results" class="well" data-repeatinner="items">
+        <img class="flickrResult" data-src="media.m" />
+      </div> 
+    </div>
+   </div>
 
-        $(".demoData").click(function(elem) {
-          window.dataLink = $(elem.target).data("link");
-          $.getJSON(window.dataLink, function(data) {
-            var iframe = $("#demoIframe");
-            var html = iframe.contents().find("html");
-            var templator = window.frames[0].Templator;
-            templator.evaluate(html, [data]);
-          });
-        });
+</div>
 
-        $("#annotateLink").click(function() {
-          window.frames[0].KixUI.Annotate();
-        });
-
-        $("#redactLink").click(function() {
-          window.frames[0].KixUI.Redact();
-        });
-
-      });
-
-    </script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/prettify.js"></script>
+    <script>
+    $(function() {      
+      window.prettyPrint && prettyPrint()
+    });
+    </script>
   </body>
 </html>
 
 
+</div>
 </body>
 
 </html>

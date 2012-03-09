@@ -41,6 +41,50 @@ class KixUI
     $(".kixValueNode").css("background-color", "#222")
     $(".kixValueNode").css("color", "#222")
 
+  Stash: (elem, cssProperty, newVal) ->
+    key = "old_" + cssProperty 
+    val = elem.css(cssProperty)
+    $.data(elem, key, val)
+    elem.css(cssProperty, newVal)
+
+  Restore: (elem, cssProperty) ->
+    key = "old_" + cssProperty
+    val = $.data(elem, key)
+    elem.css(cssProperty, val)
+
+  EditTemplateOn: () ->
+    $.each($(".kixValueNode"), (idx, elem) =>
+      elem = $(elem)
+      if elem.offset?
+        Aloha.jQuery(elem).alohaBlock()
+    )
+    Aloha.jQuery(".segment").aloha()
+  
+  EditTemplateOff: () ->
+    $.each($(".kixValueNode"), (idx, elem) =>
+      elem = Aloha.jQuery(elem)
+      if elem.offset? and elem.mahaloBlock?
+        elem.mahaloBlock()
+    )
+    Aloha.jQuery(".segment").mahalo()
+
+  EditDataOn: () ->
+    $.each($(".kixValueNode"), (idx, elem) =>
+      elem = $(elem)
+      if elem.offset?
+        #@.Stash(elem, "background-color", "#FCF6CF")
+        #@.Stash(elem, "color", "#000")
+        Aloha.jQuery(elem).aloha()
+    )
+
+  EditDataOff: () ->
+    $.each($(".kixValueNode"), (idx, elem) =>
+      elem = $(elem)
+      if elem.offset?
+        Aloha.jQuery(elem).mahalo()
+        #@.Restore(elem, "background-color")
+        #@.Restore(elem, "color")
+    )
 
   CreateSidebar: () ->
     $("head").append("<link rel=\"stylesheet\" href=\"/demo/kix.css\" type=\"text/css\" />")

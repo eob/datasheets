@@ -1,5 +1,5 @@
 (function() {
-  var AbstractTreeLevelCommand, AbstractTreeNodeCommand, DyeCommand, EnterCommand, RepeatInnerCommand, Templator, ValueCommand;
+  var AbstractTreeLevelCommand, AbstractTreeNodeCommand, AttrCommand, DyeCommand, EnterCommand, RepeatInnerCommand, Templator, ValueCommand;
   AbstractTreeNodeCommand = (function() {
     function AbstractTreeNodeCommand() {}
     AbstractTreeNodeCommand.prototype.appliesTo = function(node) {
@@ -47,6 +47,23 @@
       return [];
     };
     return ValueCommand;
+  })();
+  AttrCommand = (function() {
+    function AttrCommand() {}
+    AttrCommand.prototype.signature = function() {
+      return "data-X";
+    };
+    AttrCommand.prototype.appliesTo = function(node) {
+      return (node.data != null) && (node.data()["src"] != null);
+    };
+    AttrCommand.prototype.applyTo = function(node, evaluator, context, bookmarks, templator) {
+      var expr, res;
+      expr = node.data()["src"];
+      res = evaluator.evaluate(expr, "string", context, bookmarks);
+      node.attr("src", res);
+      return [];
+    };
+    return AttrCommand;
   })();
   EnterCommand = (function() {
     function EnterCommand() {}
@@ -105,6 +122,7 @@
       this.commands = [];
       this.addCommand(new EnterCommand());
       this.addCommand(new ValueCommand());
+      this.addCommand(new AttrCommand());
       this.repeatInner = new RepeatInnerCommand();
     }
     Templator.prototype.addCommand = function(command) {

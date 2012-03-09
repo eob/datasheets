@@ -42,6 +42,53 @@
       $(".kixValueNode").css("background-color", "#222");
       return $(".kixValueNode").css("color", "#222");
     };
+    KixUI.prototype.Stash = function(elem, cssProperty, newVal) {
+      var key, val;
+      key = "old_" + cssProperty;
+      val = elem.css(cssProperty);
+      $.data(elem, key, val);
+      return elem.css(cssProperty, newVal);
+    };
+    KixUI.prototype.Restore = function(elem, cssProperty) {
+      var key, val;
+      key = "old_" + cssProperty;
+      val = $.data(elem, key);
+      return elem.css(cssProperty, val);
+    };
+    KixUI.prototype.EditTemplateOn = function() {
+      $.each($(".kixValueNode"), __bind(function(idx, elem) {
+        elem = $(elem);
+        if (elem.offset != null) {
+          return Aloha.jQuery(elem).alohaBlock();
+        }
+      }, this));
+      return Aloha.jQuery(".segment").aloha();
+    };
+    KixUI.prototype.EditTemplateOff = function() {
+      $.each($(".kixValueNode"), __bind(function(idx, elem) {
+        elem = Aloha.jQuery(elem);
+        if ((elem.offset != null) && (elem.mahaloBlock != null)) {
+          return elem.mahaloBlock();
+        }
+      }, this));
+      return Aloha.jQuery(".segment").mahalo();
+    };
+    KixUI.prototype.EditDataOn = function() {
+      return $.each($(".kixValueNode"), __bind(function(idx, elem) {
+        elem = $(elem);
+        if (elem.offset != null) {
+          return Aloha.jQuery(elem).aloha();
+        }
+      }, this));
+    };
+    KixUI.prototype.EditDataOff = function() {
+      return $.each($(".kixValueNode"), __bind(function(idx, elem) {
+        elem = $(elem);
+        if (elem.offset != null) {
+          return Aloha.jQuery(elem).mahalo();
+        }
+      }, this));
+    };
     KixUI.prototype.CreateSidebar = function() {
       var html;
       $("head").append("<link rel=\"stylesheet\" href=\"/demo/kix.css\" type=\"text/css\" />");
