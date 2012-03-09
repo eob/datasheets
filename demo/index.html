@@ -189,9 +189,31 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
   <p class="marketing-byline">Templates are declarative and self-contained, and you can reference them using their url#id notation.</p> 
 
 <div class="row">
-  <div class="span6">
+  <div class="span3">
+    <button id="importExBtn" style="margin-top: 0" class="btn btn-success" href="#">Import</button> 
+    <script>
+    $("#importExBtn").click(function(e) {
+      var data = {
+        school:{
+          name:"Virginia Cavaliers Men's Basketball",
+          conference:"ACC",
+          logo:"img/uva.gif",
+          wins:"22",
+          losses:"8",
+          vsap:"1-5",
+          confStand:"4th",
+          confW:"9",
+          confL:"7",
+          confGb:"5.0"
+        }
+      };
+      Templator.evaluate($("#importEx"), [data]);
+    });
+    </script>
   </div><!-- left side -->
-  <div class="span6">
+  <div class="span9">
+    <ol id="importEx" data-replaceinner="http://localhost:8000/demo/espn-scrape.html#smartsearch">
+    </ol> 
   </div>
 </div> 
 

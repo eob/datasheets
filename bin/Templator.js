@@ -1,5 +1,6 @@
 (function() {
-  var AbstractTreeLevelCommand, AbstractTreeNodeCommand, AttrCommand, DyeCommand, EnterCommand, RepeatInnerCommand, Templator, ValueCommand;
+  var AbstractTreeLevelCommand, AbstractTreeNodeCommand, AttrCommand, DyeCommand, EnterCommand, RepeatInnerCommand, ReplaceInnerCommand, Templator, ValueCommand;
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   AbstractTreeNodeCommand = (function() {
     function AbstractTreeNodeCommand() {}
     AbstractTreeNodeCommand.prototype.appliesTo = function(node) {
@@ -81,6 +82,36 @@
     };
     return EnterCommand;
   })();
+  ReplaceInnerCommand = (function() {
+    function ReplaceInnerCommand() {}
+    ReplaceInnerCommand.prototype.signature = function() {
+      return "data-replaceinner";
+    };
+    ReplaceInnerCommand.prototype.appliesTo = function(node) {
+      console.log("replace inner command");
+      return (node.data != null) && (node.data()["replaceinner"] != null);
+    };
+    ReplaceInnerCommand.prototype.applyTo = function(node, evaluator, context, bookmarks, templator) {
+      var anchor, bullfrog, expr, parts, url;
+      console.log("replace inner");
+      expr = node.data()["replaceinner"];
+      parts = expr.split("#");
+      url = parts[0];
+      bullfrog = "http://localhost:4567/ribbit?callback=?";
+      anchor = parts[1];
+      return $.getJSON(bullfrog, {
+        'url': url,
+        'id': anchor
+      }, __bind(function(data) {
+        var d;
+        console.warn("WARNING: in ajax callback. might be merging twice");
+        d = $(data);
+        templator.evaluate(d, context);
+        return node.append(d);
+      }, this));
+    };
+    return ReplaceInnerCommand;
+  })();
   RepeatInnerCommand = (function() {
     function RepeatInnerCommand() {}
     RepeatInnerCommand.prototype.signature = function() {
@@ -123,6 +154,7 @@
       this.addCommand(new EnterCommand());
       this.addCommand(new ValueCommand());
       this.addCommand(new AttrCommand());
+      this.addCommand(new ReplaceInnerCommand());
       this.repeatInner = new RepeatInnerCommand();
     }
     Templator.prototype.addCommand = function(command) {
@@ -163,6 +195,7 @@
       return _results;
     };
     Templator.prototype._handleConditionals = function(nodes, context, heads) {
+      console.log(nodes);
       return nodes;
     };
     Templator.prototype.hide = function(jqNode) {

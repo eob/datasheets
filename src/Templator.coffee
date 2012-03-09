@@ -65,6 +65,26 @@ class EnterCommand
     res = evaluator.evaluate(expr, "any", context, bookmarks)
     return [res]
 
+class ReplaceInnerCommand
+  signature: () ->
+    return "data-replaceinner"
+  appliesTo: (node) ->
+    console.log("replace inner command")
+    return node.data? and node.data()["replaceinner"]?
+  applyTo: (node, evaluator, context, bookmarks, templator) ->
+    console.log("replace inner")
+    expr = node.data()["replaceinner"]
+    parts = expr.split("#")
+    url = parts[0]
+    bullfrog = "http://localhost:4567/ribbit?callback=?"
+    anchor = parts[1]
+    $.getJSON(bullfrog, {'url':url,'id':anchor}, (data) =>
+      console.warn("WARNING: in ajax callback. might be merging twice")
+      d = $(data)
+      templator.evaluate(d, context)
+      node.append(d)
+    )
+
 class RepeatInnerCommand
   signature: () ->
     return "data-repeatInner"
@@ -118,6 +138,7 @@ class Templator
     @.addCommand(new EnterCommand())
     @.addCommand(new ValueCommand())
     @.addCommand(new AttrCommand())
+    @.addCommand(new ReplaceInnerCommand())
     @.repeatInner = new RepeatInnerCommand()
 
   addCommand: (command) ->
@@ -153,6 +174,7 @@ class Templator
   # Returns:
   #  - The list of nodes at this level to be shown
   _handleConditionals: (nodes, context, heads) ->
+    console.log(nodes)
     return nodes
 
   hide: (jqNode) ->
