@@ -9,6 +9,7 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/prettify.css" rel="stylesheet">
     <script src="js/jquery.js"></script>
+    <script src="../bin/StyleCopy.js"></script>
     <style>
       
 /* Marketing section of Overview
@@ -147,7 +148,7 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
   <p class="marketing-byline">The output contains the data and the template used to style it.</p>
 
 <div class="row">
-  <div class="span6">
+  <div class="span5" id="tweetTemplate">
     <div id="tweets">
       <div class="row tweet">
         <div class="span1 avatarCol"><img src="img/twitteruser.png" /></div>
@@ -173,11 +174,37 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
           </div>
         </div><!-- tweet right -->
       </div><!-- tweet row -->
-  </div><!-- tweets div -->
-
+    </div><!-- tweets div -->
   </div><!-- left side -->
-  <div class="span6">
+  <div class="span2" style="padding-top: 20px;">
+    <p align="center"><button id="tweetShowTemplate" class="btn btn-info">Template</button></p>
+    <p align="center"><button id="tweetShowData" class="btn btn-info">Data</button></p>
   </div>
+  <div class="span5" id="tweetResult">
+ 
+  </div>
+  <script>
+  $(function() {
+    var tweets = [
+      {from: "Twitter User 1",
+       handle: "@handle1",
+       date: "6 Mar",
+       text: "Let me ask you something. Do you feel lucky, punk?",
+       icon: "img/twitteruser.png"},
+      {from: "Twitter User 2",
+       handle: "@handle2",
+       date: "6 Mar",
+       text: "Let me ask you something. Do you feel lucky, punk?",
+       icon: "img/twitteruser.png"}
+    ];
+
+    $("#tweetShowTemplate").click(function(e) {
+      $("#tweetResult").html($("#tweetTemplate").html())
+      $("#tweetResult").find(".kixValueNode").css("background-color", "#444")
+       .css("text-color", "#444")
+    });
+  });
+  </script>
 </div> 
 
 </div>
@@ -218,6 +245,80 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
 </div> 
 
 </div>
+
+<hr class="soften">
+
+<div class="marketing">
+  <h1>Search for Templates that Match your Data</h1>
+
+
+  <div class="modal fade" id="pickModal">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3>Choose a Template</h3>
+    </div>
+    <div class="modal-body">
+      <div class="control-group">
+         <table id="pickTs" class="controls" data-repeatinner="templates">
+           <tr>
+           <td><input style="float:left; margin-bottom:10px" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" /></td>
+           <td class="tempContainer" data-value="content" data-stop="true">Content</td>
+           </tr>
+         </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#" onclick="$('#pickModal').modal('hide');" class="btn">Close</a>
+      <a href="#" id="useFoundT" class="btn btn-primary">Use</a>
+      <script>
+      $(function() {
+        $("#useFoundT").click(function(e) {
+          var tpl = $("#pickTs").find("input[name=optionsRadios]:checked").first().parent().parent().find(".tempContainer").children()[0];
+          $("#linkExampleOut").html($(tpl));
+          Templator.evaluate($("#linkExampleOut"),[{items:window.linkData}]);
+          $('#pickModal').modal('hide');
+          return false;
+        });
+      });
+      </script>
+    </div>
+  </div>
+<div class="row">
+  <div class="span3">
+    <button id="searchExBtn" style="margin-top: 0" class="btn btn-success" href="#">Find</button> 
+    <p>Finding tempates that match from <a href="navlists.html">this page</a></p>
+    <script>
+      var linkData = [
+        {'title':'Haystack Home', 'link':'#'},
+        {'title':'Recent News', 'link':'#'},
+        {'title':'Papers', 'link':'#'},
+        {'title':'Members', 'link':'#'},
+        {'title':'Blog', 'link':'#'}];
+    
+    $("#searchExBtn").click(function(e) {
+      $.getJSON(
+        "http://localhost:4567/byschema?callback=?",
+        {url:"http://localhost:8000/demo/navlists.html"},
+        function(r) {
+         Templator.evaluate($("#pickTs"), [{templates:r}]);
+         $("#pickModal").modal("show"); 
+      });
+    });
+    $(function() {
+      Templator.evaluate($("#linkExampleOut"),[{linkData:linkData}]);
+    });
+    </script>
+  </div><!-- left side -->
+  <div id="linkExampleOut" class="span9">
+  <ul data-repeatinner="linkData">
+    <li><a data-href="link" href="#" data-value="title">Plaholder</a>
+  </li>
+  </div>
+</div> 
+
+</div>
+
+
 
 <hr class="soften">
 

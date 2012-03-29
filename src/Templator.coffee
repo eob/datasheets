@@ -5,7 +5,6 @@
 # eob@csail.mit.edu | @edwardbenson | github:eob
 # 
 
-
 # ========================================================================
 # |
 # | Commands
@@ -32,6 +31,12 @@ class DyeCommand
       node.css('border', '1px solid black')
       return []
 
+class StopCommand
+  signature: () ->
+    return "data-stop"
+  appliesTo: (node) ->
+    return node.data? and node.data()["stop"]?
+ 
 class ValueCommand
   signature: () ->
     return "data-value"
@@ -140,6 +145,7 @@ class Templator
     @.addCommand(new AttrCommand())
     @.addCommand(new ReplaceInnerCommand())
     @.repeatInner = new RepeatInnerCommand()
+    @.dataStop= new StopCommand()
 
   addCommand: (command) ->
     @commands.push(command)
@@ -158,7 +164,9 @@ class Templator
         newContexts = newContexts.concat(nc) # To remove upon exit upware
 
     # Continue down the tree
-    if @.repeatInner.appliesTo(node)
+    if @.dataStop.appliesTo(node)
+      # Nothing
+    else if @.repeatInner.appliesTo(node)
       contexts = @.repeatInner.applyTo(node, @evaluator, context, bookmarks, @)
     else
       # Travel into children

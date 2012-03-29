@@ -1,5 +1,5 @@
 (function() {
-  var AbstractTreeLevelCommand, AbstractTreeNodeCommand, AttrCommand, DyeCommand, EnterCommand, RepeatInnerCommand, ReplaceInnerCommand, Templator, ValueCommand;
+  var AbstractTreeLevelCommand, AbstractTreeNodeCommand, AttrCommand, DyeCommand, EnterCommand, RepeatInnerCommand, ReplaceInnerCommand, StopCommand, Templator, ValueCommand;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   AbstractTreeNodeCommand = (function() {
     function AbstractTreeNodeCommand() {}
@@ -30,6 +30,16 @@
       }
     };
     return DyeCommand;
+  })();
+  StopCommand = (function() {
+    function StopCommand() {}
+    StopCommand.prototype.signature = function() {
+      return "data-stop";
+    };
+    StopCommand.prototype.appliesTo = function(node) {
+      return (node.data != null) && (node.data()["stop"] != null);
+    };
+    return StopCommand;
   })();
   ValueCommand = (function() {
     function ValueCommand() {}
@@ -156,6 +166,7 @@
       this.addCommand(new AttrCommand());
       this.addCommand(new ReplaceInnerCommand());
       this.repeatInner = new RepeatInnerCommand();
+      this.dataStop = new StopCommand();
     }
     Templator.prototype.addCommand = function(command) {
       return this.commands.push(command);
@@ -178,7 +189,7 @@
           newContexts = newContexts.concat(nc);
         }
       }
-      if (this.repeatInner.appliesTo(node)) {
+      if (this.dataStop.appliesTo(node)) {} else if (this.repeatInner.appliesTo(node)) {
         contexts = this.repeatInner.applyTo(node, this.evaluator, context, bookmarks, this);
       } else {
         toShow = this._handleConditionals(node.children(), context, bookmarks);
