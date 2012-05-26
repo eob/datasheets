@@ -6,24 +6,41 @@
   <meta name="viewport" content="width=600, initial-scale=0.5, minimum-scale=0.45" />
   <link rel="stylesheet" type="text/css" media="screen"  href="style.css" />
 
-  <script src="../../js/jquery.js"></script>
-  <script src="../../../bin/Evaluator.js"></script>
-  <script src="../../../bin/Templator.js"></script>
-  <script src="../../../bin/UI.js"></script>
+ <script src="../../js/jquery.js"></script>
+    <script src="../../../bin/element-picker.js"></script>
+    <script src="../../../bin/Popover.js"></script>
+    <script src="../../../bin/Callout.js"></script>
+    <script src="../../../bin/Copy.js"></script>
+    <script src="../../../bin/CopyUI.js"></script>
+    <script src="../../../bin/Paste.js"></script>
+    <script src="../../../bin/PasteUI.js"></script>
+    <script src="../../../bin/Evaluator.js"></script>
+    <script src="../../../bin/Engine.js"></script>
+    <script src="../../../bin/ApplySheet.js"></script>
+    <script src="../../../bin/ApplySheetUI.js"></script>
+    <script src="../../../bin/Edit.js"></script>
+    <script src="../../../bin/EditUI.js"></script>
+    <script>
+    jQueryDss(function() {
+      jQueryDss.getJSON("../blog3/data.js", function(data) {
+        DSS.Engine.render(jQueryDss('html'), [data]);
+      });
+    });
+</script>
 
 </head>
 <body>
   <div id="wrapper">
 <div id="Box">
 
-  <div id="Banner" style="width: 800px">
-    <table height="50px">
+  <div id="Banner" style="width: 800px; margin-bottom: -30px">
+    <table style="margin-left:170px" height="50px">
       <tr><td valign="middle">
           <img src="title.png" height="50px"/>
     </td><td valign="middle" data-value="title">Blog Title</td></tr></table>
   </div>
 
-<div id="Sidebar">
+<div id="Sidebar" style="margin-top:-40px">
 <p>By <strong data-value="author">Author Name</strong></p>
 
 <ul data-repeatinner="pages">

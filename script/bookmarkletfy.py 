@@ -1,0 +1,81 @@
+jsout = open("../demo/bookmarklets.html", "w")
+
+jsout.write("<html><body>")
+
+script = ""
+
+jsprereqs = [
+  "element-picker.js",
+  "Popover.js",
+  "Callout.js",
+  "Copy.js",
+  "CopyUI.js",
+  "Paste.js",
+  "PasteUI.js",
+  "Evaluator.js",
+  "Engine.js",
+  "ApplySheet.js",
+  "ApplySheetUI.js",
+  "Edit.js",
+  "EditUI.js"]
+
+cssreqs = [
+  "Popover.css"
+]
+
+jsfiles = [("http://localhost:8000/bin/%s" % s) for s in jsprereqs]
+cssfiles = [("http://localhost:8000/bin/%s" % s) for s in cssreqs]
+
+def makeCssImportString(url):
+  ret =  "var s=document.createElement('link');"
+  ret += "s.setAttribute('href','%s');" % url
+  ret += "s.setAttribute('rel','stylesheet');"
+  ret += "s.setAttribute('type','text/css');"
+  ret += "document.getElementsByTagName('body')[0].appendChild(s);"
+  return ret
+
+def makeImportString(url):
+  ret =  "var s=document.createElement('script');"
+  ret += "s.setAttribute('src','%s');" % url
+  ret += "document.getElementsByTagName('body')[0].appendChild(s);"
+  return ret
+
+def makeJqueryImportString(url, jquery):
+  ret =  "if (typeof $ == 'undefined') {"
+  ret += makeImportString(jquery)
+  ret += "}"
+  ret += makeImportString(url)
+  return ret
+
+def makeBookmarklet(js, name):
+  return "<a href=\"javascript:%s\">%s</a>" % (js, name)
+
+jq = makeImportString("http://localhost:8000/demo/js/jquery.js")
+pre = "".join([makeImportString(f) for f in jsfiles])
+pre += "".join([makeCssImportString(f) for f in cssfiles])
+
+#include = makeJqueryImportString(pickerUrl, jQueryUrl)
+#include += makeImportString(bootstrapJs)
+#include += makeCssImportString(bootstrapCss)
+
+copy = "DSS.CopyUI.copy();"
+paste= "DSS.PasteUI.paste();"
+edit = "DSS.EditUI.editData();"
+applySheet = "DSS.ApplySheetUI.show();"
+
+jsout.write("<br />")
+jsout.write(makeBookmarklet(jq, "Load jQuery"))
+jsout.write("<br />")
+jsout.write(makeBookmarklet(pre, "Load DSS"))
+jsout.write("<br />")
+jsout.write(makeBookmarklet(edit, "Edit"))
+jsout.write("<br />")
+jsout.write(makeBookmarklet(copy, "Copy"))
+jsout.write("<br />")
+jsout.write(makeBookmarklet(paste, "Paste"))
+jsout.write("<br />")
+jsout.write(makeBookmarklet(applySheet, "apply sheet"))
+
+jsout.write("</body></html>")
+jsout.close()
+

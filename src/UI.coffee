@@ -97,7 +97,7 @@ class KixUI
          <tr>
            <td>JSON:</td>
            <td align="right"><input type="text" id="kixLoadData" /></td>
-         </tr>
+        </tr>
          <tr><td></td>
           <td align="right"><input type="submit" id="kixLoadDataBtn" value="Load Data" /></td>
         </tr>

@@ -8,8 +8,24 @@
     <meta name="author" content="Ted Benson">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/prettify.css" rel="stylesheet">
+
     <script src="js/jquery.js"></script>
-    <script src="../bin/StyleCopy.js"></script>
+    <script src="../bin/element-picker.js"></script>
+    <script src="../bin/Popover.js"></script>
+    <script src="../bin/Callout.js"></script>
+    <script src="../bin/Copy.js"></script>
+    <script src="../bin/CopyUI.js"></script>
+    <script src="../bin/Paste.js"></script>
+    <script src="../bin/PasteUI.js"></script>
+    <script src="../bin/Evaluator.js"></script>
+    <script src="../bin/Engine.js"></script>
+    <script src="../bin/ApplySheet.js"></script>
+    <script src="../bin/ApplySheetUI.js"></script>
+    <script src="../bin/Edit.js"></script>
+    <script src="../bin/EditUI.js"></script>
+ 
+    
+    
     <style>
       
 /* Marketing section of Overview
@@ -128,8 +144,6 @@
 <script>
 var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
 </script>
-<script src="../bin/Evaluator.js"></script>
-<script src="../bin/Templator.js"></script>
 </head>
 
 <body>
@@ -137,17 +151,35 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
 
 <header class="jumbotron masthead">
   <div class="inner">
-    <p align="center"><img src="img/recycle.png" /></p>
+    <p align="center"><img src="img/datastylesheets.png" /></p>
   </div>
 </header>
+<div class="row">
+  <div class="span4">
+    <h3 align="center">Like CSS for Data Binding</h3>
+    <p align="center">Data Stylesheets are a declarative, HTML5 native template langauge that binds data to a web template. It feels like CSS, and the rendering process preserves the full template.</p>
+  </div>
+  <div class="span4">
+    <p align="center"><img src="img/recycle-small.png" /></p>
+    <h3 align="center">Higher-level HTML Primitives</h3>
+    <p>Organize and import HTML structures like you import code. Just provide the data.</p>
+  </div>
+  <div>
+    <h3 align="center">WYSIWYG template editing</h3>
+    <p>Because the browser is aware of the template structure, data and template editing can be done in place, in the context of tha page.</p>
+  </div>
+</div>
 
 <hr class="soften">
 
 <div class="marketing">
-  <h1>The first lossless HTML template language.</h1>
+  <h1>Lossless Rendering</h1>
   <p class="marketing-byline">The output contains the data and the template used to style it.</p>
 
 <div class="row">
+
+
+
   <div class="span5" id="tweetTemplate">
     <div id="tweets">
       <div class="row tweet">
@@ -184,7 +216,7 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
  
   </div>
   <script>
-  $(function() {
+  jQueryDss(function() {
     var tweets = [
       {from: "Twitter User 1",
        handle: "@handle1",
@@ -198,9 +230,9 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
        icon: "img/twitteruser.png"}
     ];
 
-    $("#tweetShowTemplate").click(function(e) {
-      $("#tweetResult").html($("#tweetTemplate").html())
-      $("#tweetResult").find(".kixValueNode").css("background-color", "#444")
+    jQueryDss("#tweetShowTemplate").click(function(e) {
+      jQueryDss("#tweetResult").html(jQueryDss("#tweetTemplate").html())
+      jQueryDss("#tweetResult").find(".kixValueNode").css("background-color", "#444")
        .css("text-color", "#444")
     });
   });
@@ -216,10 +248,18 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
   <p class="marketing-byline">Templates are declarative and self-contained, and you can reference them using their url#id notation.</p> 
 
 <div class="row">
-  <div class="span3">
-    <button id="importExBtn" style="margin-top: 0" class="btn btn-success" href="#">Import</button> 
+  <div class="span5">
+    <p><button id="importExBtn" style="margin-top: 0" class="btn btn-success" href="#">Import</button> <span style="font-size:1.2em">from <a href="espn-scrape.html">this copy</a> of an ESPN page</span></p>
+    <p>The referenced fragment is fetched from the source page, copied with full styles applied, and merged with our local data.</p>
+<pre class="prettyprint linenums" style="margin-right: 15px; margin-bottom: 9px;">
+{   name: "Virginia Cavaliers Men's ...",
+    wins: 22, 
+  losses: 8
+  ...
+}
+</pre>
     <script>
-    $("#importExBtn").click(function(e) {
+    jQueryDss("#importExBtn").click(function(e) {
       var data = {
         school:{
           name:"Virginia Cavaliers Men's Basketball",
@@ -234,13 +274,18 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
           confGb:"5.0"
         }
       };
-      Templator.evaluate($("#importEx"), [data]);
+      DSS.Engine.render(jQueryDss("#importEx"), [data]);
     });
     </script>
   </div><!-- left side -->
-  <div class="span9">
-    <ol id="importEx" data-replaceinner="http://localhost:8000/demo/espn-scrape.html#smartsearch">
+  <div class="span7">
+    <ol id="importEx" data-enter="school" data-replaceinner="http://localhost:8000/demo/espn-scrape.html#smartsearch">
+      <p><b data-value="name">Virginia Cavaliers Men's Basketball</b> (<span data-value="conference">ACC</span>, <span data-value="confStand">4th</span>)</p>
+      <p>Record: <span data-value="wins">22</span>-<span data-value="losses">8</span>, Conference Record: <span data-value="confW">9</span>-<span data-value="confL">7</span>, VSAP: <span data-value="vsap">1-5</span>, Gb: <span data-value="confGb">5.0</span></p>
+      <span data-value="logo" style="display:none;">img/uva.gif</span>
     </ol> 
+
+
   </div>
 </div> 
 
@@ -268,15 +313,15 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#" onclick="$('#pickModal').modal('hide');" class="btn">Close</a>
+      <a href="#" onclick="jQueryDss('#pickModal').modal('hide');" class="btn">Close</a>
       <a href="#" id="useFoundT" class="btn btn-primary">Use</a>
       <script>
-      $(function() {
-        $("#useFoundT").click(function(e) {
-          var tpl = $("#pickTs").find("input[name=optionsRadios]:checked").first().parent().parent().find(".tempContainer").children()[0];
-          $("#linkExampleOut").html($(tpl));
-          Templator.evaluate($("#linkExampleOut"),[{items:window.linkData}]);
-          $('#pickModal').modal('hide');
+      jQueryDss(function() {
+        jQueryDss("#useFoundT").click(function(e) {
+          var tpl = jQueryDss("#pickTs").find("input[name=optionsRadios]:checked").first().parent().parent().find(".tempContainer").children()[0];
+          jQueryDss("#linkExampleOut").html(jQueryDss(tpl));
+          DSS.Engine.render(jQueryDss("#linkExampleOut"),[{items:window.linkData}]);
+          jQueryDss('#pickModal').modal('hide');
           return false;
         });
       });
@@ -295,17 +340,17 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
         {'title':'Members', 'link':'#'},
         {'title':'Blog', 'link':'#'}];
     
-    $("#searchExBtn").click(function(e) {
-      $.getJSON(
+    jQueryDss("#searchExBtn").click(function(e) {
+      jQueryDss.getJSON(
         "http://localhost:4567/byschema?callback=?",
         {url:"http://localhost:8000/demo/navlists.html"},
         function(r) {
-         Templator.evaluate($("#pickTs"), [{templates:r}]);
-         $("#pickModal").modal("show"); 
+         DSS.Engine.render(jQueryDss("#pickTs"), [{templates:r}]);
+         jQueryDss("#pickModal").modal("show"); 
       });
     });
-    $(function() {
-      Templator.evaluate($("#linkExampleOut"),[{linkData:linkData}]);
+    jQueryDss(function() {
+      DSS.Engine.render(jQueryDss("#linkExampleOut"),[{linkData:linkData}]);
     });
     </script>
   </div><!-- left side -->
@@ -331,7 +376,7 @@ var flickrUrl = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncall
       <p>Only one line of code necessary to merge the JSON results from an Ajax call with the user's DOM.</p> 
 <pre id="catCode" class="prettyprint linenums" style="margin-right: 15px; margin-bottom: 9px;">
 val ajaxResponseHandler = function(json) {
-  Templator.evaluate($("#results"), [data]); 
+  DSS.Engine.render(jQueryDss("#results"), [data]); 
 };</pre>
    <table class="control-group"><tr><td>
          <label class="control-label" for="flickr-search">Try Search:</label>
@@ -343,13 +388,13 @@ val ajaxResponseHandler = function(json) {
        </table>
     </form>
    <script>
-     $("#catBtn").click(function(e) {
-var query = { tags: $("#flickr-search").val(),
+     jQueryDss("#catBtn").click(function(e) {
+var query = { tags: jQueryDss("#flickr-search").val(),
               tagmode: "any", format:"json"};
 
-            $.getJSON(flickrUrl, query, function(data) {
+            jQueryDss.getJSON(flickrUrl, query, function(data) {
               data.items = data.items.slice(5)
-              Templator.evaluate($("#results"), [data]);
+              DSS.Engine.render(jQueryDss("#results"), [data]);
 });
      });
    </script>
@@ -374,7 +419,7 @@ var query = { tags: $("#flickr-search").val(),
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap/js/prettify.js"></script>
     <script>
-    $(function() {      
+    jQueryDss(function() {      
       window.prettyPrint && prettyPrint()
     });
     </script>

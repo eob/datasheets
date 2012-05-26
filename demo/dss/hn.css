@@ -1,0 +1,36 @@
+table tr:nth-child(3) table tbody {
+  repeatinner3: posts;
+}
+
+td.title :last-child {
+  value: domain;
+}
+
+table tr:nth-child(3) table tbody tr td:first {
+  value: __DSS__idx1;
+}
+
+td.title :nth-child(1) {
+  value: title;
+  href: permalink;
+}
+
+td.subtext :nth-child(1) {
+  value: score;
+}
+
+td.subtext :nth-child(2) {
+  value: author;
+  href: authorLink;
+}
+
+td.subtext :nth-child(3) {
+  value: commentCount;
+  href: commentLink;
+}
+
+.pagetop b a {
+  value: title;
+}
+
+

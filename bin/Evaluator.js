@@ -1,5 +1,10 @@
 (function() {
-  var AbstractEvaluator, EvaluatorRegistry, JavascriptEvaluator, JsonEvaluator;
+  var $, AbstractEvaluator, EvaluatorRegistry, JavascriptEvaluator, JsonEvaluator, module;
+  $ = jQueryDss;
+  module = function(name) {
+    return window[name] = window[name] || {};
+  };
+  module('DSS');
   AbstractEvaluator = (function() {
     function AbstractEvaluator() {}
     AbstractEvaluator.prototype.evaluate = function(expression, returnType, context, bookmarks) {
@@ -17,7 +22,6 @@
     };
     JsonEvaluator.prototype.evaluate = function(expression, returnType, contexts, bookmarks) {
       var cmd, context, key, ret, _i, _len;
-      console.log("Default Evaluator evaluating: " + expression);
       context = contexts[contexts.length - 1];
       if (expression === ".") {
         return context;
@@ -34,7 +38,6 @@
         return eval("var ret = context" + expression + ";");
       } else {
         cmd = "var ret = context." + expression + ";";
-        console.log(cmd);
         eval(cmd);
         return ret;
       }
@@ -93,5 +96,5 @@
     };
     return EvaluatorRegistry;
   })();
-  window.Evaluator = new EvaluatorRegistry();
+  DSS.Evaluator = new EvaluatorRegistry();
 }).call(this);

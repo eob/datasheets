@@ -19,45 +19,67 @@
     ul.commas li:after { content: ","; } 
     ul.commas li:last-child:after { content: ""; }
   </style>
-  <script src="../../js/jquery.js"></script>
-  <script src="../../../bin/Evaluator.js"></script>
-  <script src="../../../bin/Templator.js"></script>
-  <script src="../../../bin/UI.js"></script>
+
+ <script src="../../js/jquery.js"></script>
+    <script src="../../../bin/element-picker.js"></script>
+    <script src="../../../bin/Popover.js"></script>
+    <script src="../../../bin/Callout.js"></script>
+    <script src="../../../bin/Copy.js"></script>
+    <script src="../../../bin/CopyUI.js"></script>
+    <script src="../../../bin/Paste.js"></script>
+    <script src="../../../bin/PasteUI.js"></script>
+    <script src="../../../bin/Evaluator.js"></script>
+    <script src="../../../bin/Engine.js"></script>
+    <script src="../../../bin/ApplySheet.js"></script>
+    <script src="../../../bin/ApplySheetUI.js"></script>
+    <script src="../../../bin/Edit.js"></script>
+    <script src="../../../bin/EditUI.js"></script>
+    <script>
+    jQueryDss(function() {
+      jQueryDss.getJSON("data.js", function(data) {
+        DSS.Engine.render(jQueryDss('html'), [data]);
+      });
+    });
+    </script>
 </head>
 <body class="single single-post postid-517 single-format-standard typekit-enabled single-author highlander-enabled highlander-light">
   <div id="wrapper">
 <div id="container">
-	<div id="header">
+	<div id="header" style="min-height: 150px">
 		<h1 id="site-title"><a href="#" title="," rel="home" data-value="title">Blog Title</a></h1>
-		<h2 id="site-description" data-value="subtitle">Witty Tagline</h2>
+		<h2 id="site-description" style="margin-bottom: 15px" data-value="subtitle">Witty Tagline</h2>
 	</div>
-
-	<div id="menu">
+	<div id="menu" style="margin-bottom: 5px">
     <div class="menu">
       <ul data-repeatinner="pages">
         <li><a data-href="link" data-value="title" href="#" title="Home">Page 1</a></li>
       </ul>
     </div>
 	</div>
-		
 	<div id="contents" data-repeatinner="posts">
-		<div class="post-517 post type-post status-publish format-standard hentry category-design-2 category-featured-artist category-illustration tag-art tag-john-contino" id="post">
-			<div class="entry-meta">
-								<div class="date" data-value="date"><a href="http://littlecommas.wordpress.com/2011/11/22/john-contino/">Nov 22 2011</a></div>
-                <div class="comments"><a href="http://littlecommas.wordpress.com/2011/11/22/john-contino/#comments" title="Comment on John&nbsp;Contino"><span data-value="numComments">44</span> Comments</a></div>
-												<span class="byline">
-					<a href="http://littlecommas.wordpress.com/author/chellykins/">
-            By <span data-value="author">chellykins</span>
-					</a>
-				</span><!-- .byline -->
-								
-        <span class="cat-links"><ul class="commas" repeatinner="categories"><li data-value="."><a href="http://littlecommas.wordpress.com/category/design-2/" title="View all posts in Design" rel="category tag">Design</a></li></ul></span>
-							</div>
-			<div class="main">
-			<h2 class="entry-title" data-value="title">Post Title</h2>
-      <div class="entry-content" data-value="body">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<div class="post type-post status-publish format-standard hentry" id="post">
+			<div class="entry-meta" style="margin-top: 15px">
+        <div class="date" data-value="date">
+          <a href="http://littlecommas.wordpress.com/2011/11/22/john-contino/">Nov 22 2011</a>
+        </div>
+        <div class="comments">
+          <a href="#" title="Comment on John&nbsp;Contino"><span data-value="comment_count">44</span> Comments</a>
+        </div>
+			  <span class="byline">
+          <a href="#" data-enter="author">By <span data-value="name">chellykins</span></a>
+				</span>
+        <span class="cat-links">
+          <ul class="commas" repeatinner="categories">
+            <li data-value=".">
+            <a href="#" title="View all posts in Design" rel="category tag">Design</a>
+            </li>
+          </ul>
+        </span>
+		  </div>
+			<div class="main" style="padding-top: 12px">
+			  <h2 class="entry-title" data-value="title">Post Title</h2>
+        <div class="entry-content" data-value="body" style="font-size: 1.3em">
+          <p>Lorem ipsum</p>
         </div>
       </div>
     </div>

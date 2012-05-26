@@ -1,0 +1,50 @@
+/* 
+ * REDDIT.COM examples DSS file
+ *
+ *
+ */
+
+/*
+ * SITE DATA
+ */
+
+/*
+ * POSTS
+ */
+#siteTable {
+  repeatinner: posts;
+}
+
+a.title {
+  value: title;
+  href: permalink;
+}
+
+span.domain a {
+  value: domain;
+  href: domainLink;
+}
+
+div.midcol div.unvoted {
+  value: score;
+}
+
+ul.flat-list li.first a {
+  value: commentCount;
+  href: commentLink;
+}
+
+p.tagline time {
+  value: postedOnRelative;
+}
+
+p.tagline a {
+  value: author;
+  href: authorLink;
+}
+
+#header-bottom-left a {
+  value: title;
+}
+
+

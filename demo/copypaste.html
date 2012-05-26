@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Copy Paste Development Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Element Picker Example">
+    <meta name="author" content="Ted Benson">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    
+    <script src="../bin/element-picker.js"></script>
+    <script src="../bin/Popover.js"></script>
+    <script src="../bin/Callout.js"></script>
+    <script src="../bin/Copy.js"></script>
+    <script src="../bin/CopyUI.js"></script>
+    <script src="../bin/Paste.js"></script>
+    <script src="../bin/PasteUI.js"></script>
+    <script src="../bin/Evaluator.js"></script>
+    <script src="../bin/Engine.js"></script>
+    <script src="../bin/ApplySheet.js"></script>
+    <script src="../bin/ApplySheetUI.js"></script>
+    <script src="../bin/Edit.js"></script>
+    <script src="../bin/EditUI.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+<div id="theRow" class="row" style="margin-top:150px">
+  <div id="va" class="span2">
+    <h2 style="font: Times; color: orange; background-color: blue;" data-value="title">Virginia</h2>
+    <p>Capitol: <span data-value="capitol">Richmond</span></p>
+    <p>Schools
+      <ul data-repeatInner="schools">
+        <li data-value="name">UVA</li>
+        <li data-value="name">VT</li>
+        <li data-value="name">WM</li>
+      </ul>
+    </p>
+ </div>
+  <div id="ma" class="span2">
+    <h2 style="font: Impact; color: white; background-color: black" data-value="title">Massachuetts</h2>
+    <p>Capitol: <span data-value="capitol">Boston</span></p>
+    <p>Schools
+      <ul data-repeatInner="schools">
+        <li data-value="name">MIT</li>
+        <li data-value="name">Harvard</li>
+        <li data-value="name">Tufts</li>
+      </ul>
+    </p>
+ </div>
+  <div style="font-family: Impact" id="ca" class="span2">
+    <h2 data-value="title">California</h2>
+    <p>Capitol: <span data-value="capitol">Sacramento</p>
+    <p>Schools
+      <ul data-repeatInner="schools">
+        <li data-value="name">Berkeley</li>
+        <li data-value="name">Stanford</li>
+        <li data-value="name">UCLA</li>
+      </ul>
+    </p>
+ </div>
+  <div id="unmarked" style="font-family: Impact" id="ca" class="span2">
+    <h2>Unmarked State</h2>
+    <p>Capitol: <span>Unmarked City</p>
+  
+    <p>Schools
+    <div data-repeatinner2="posts">
+      <div data-value="title">School 1</div>
+      <div data-value="domain">Domain</div>
+      </div>
+    </p>
+ </div>
+
+</div>
+<div class="row">
+  <div class="span2 offset2">  
+    <button id="copyButton">Copy</button>
+    <button id="pasteButton">Paste</button>
+    <button id="applyButton">Apply</button>
+  </div>
+</div>
+
+</div>
+<script>
+  jQueryDss(function() {
+    jQueryDss("#copyButton").click(function(e) {
+      window.DSS.CopyUI.copy();
+    });
+   jQueryDss("#pasteButton").click(function(e) {
+      window.DSS.PasteUI.paste();
+   });
+   jQueryDss("#applyButton").click(function(e) {
+      window.DSS.ApplySheetUI.show();
+   });
+   DSS.ApplySheetUI.constructor();
+ });
+</script>
+</body>
+
+</html>
+
+
